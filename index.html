@@ -76,7 +76,7 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease, font-size 0.3s ease, padding 0.3s ease;
             font-family: 'Comic Sans MS', cursive;
         }
 
@@ -84,10 +84,10 @@
             background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
             color: white;
             box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            transform: scale(1);
         }
 
         #oui:hover {
-            transform: scale(1.1);
             box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
         }
 
@@ -189,7 +189,11 @@
     <script>
         const nonButton = document.getElementById('non');
         const nonPlaceholder = document.getElementById('non-placeholder');
+        const ouiButton = document.getElementById('oui');
         const buttonsContainer = document.querySelector('.buttons');
+
+        let tentativesNon = 0;
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
         // Positionner le bouton "Non" à sa position initiale (au-dessus du placeholder)
         function initialiserPositionNon() {
@@ -203,43 +207,47 @@
         // Initialiser au chargement
         initialiserPositionNon();
 
-        // Détecter si c'est un appareil tactile
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
         if (isTouchDevice) {
-            // Sur mobile/tactile: détecter quand on touche ou s'approche du bouton
+            // ===== MODE MOBILE: Rétrécir "Non" et agrandir "Oui" =====
+
             nonButton.addEventListener('touchstart', function(e) {
                 e.preventDefault();
-                const touch = e.touches[0];
-                const buttonRect = nonButton.getBoundingClientRect();
-                const buttonCenterX = buttonRect.left + buttonRect.width / 2;
-                const buttonCenterY = buttonRect.top + buttonRect.height / 2;
-                fuirSouris(touch.clientX, touch.clientY, buttonCenterX, buttonCenterY);
+                retrecirNonAgrandirOui();
             });
 
-            // Détecter les touches proches du bouton
-            document.addEventListener('touchstart', function(e) {
-                const touch = e.touches[0];
-                const buttonRect = nonButton.getBoundingClientRect();
-                const buttonCenterX = buttonRect.left + buttonRect.width / 2;
-                const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+            nonButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                retrecirNonAgrandirOui();
+            });
 
-                const touchX = touch.clientX;
-                const touchY = touch.clientY;
+            function retrecirNonAgrandirOui() {
+                tentativesNon++;
 
-                // Calculer la distance
-                const distance = Math.sqrt(
-                    Math.pow(touchX - buttonCenterX, 2) +
-                    Math.pow(touchY - buttonCenterY, 2)
-                );
+                // Calculer les nouvelles échelles
+                const nonScale = Math.max(0.3, 1 - (tentativesNon * 0.2)); // Min 30%
+                const ouiScale = 1 + (tentativesNon * 0.3); // Grandit de 30% à chaque fois
 
-                // Si on touche à moins de 100px du bouton, il fuit!
-                if (distance < 100) {
-                    fuirSouris(touchX, touchY, buttonCenterX, buttonCenterY);
+                // Appliquer les transformations
+                nonButton.style.transform = `scale(${nonScale})`;
+                ouiButton.style.transform = `scale(${ouiScale})`;
+
+                // Messages drôles selon le nombre de tentatives
+                if (tentativesNon === 1) {
+                    nonButton.textContent = "Non? 🤔";
+                } else if (tentativesNon === 2) {
+                    nonButton.textContent = "Sérieux? 😢";
+                } else if (tentativesNon === 3) {
+                    nonButton.textContent = "Allez! 🥺";
+                } else if (tentativesNon >= 4) {
+                    nonButton.textContent = "Non";
+                    nonButton.style.fontSize = "0.6em";
                 }
-            });
+            }
+
         } else {
-            // Sur desktop: détecter la proximité de la souris
+            // ===== MODE DESKTOP: Le bouton fuit la souris =====
+
+            // Détecter la proximité de la souris
             buttonsContainer.addEventListener('mousemove', function(e) {
                 const buttonRect = nonButton.getBoundingClientRect();
                 const buttonCenterX = buttonRect.left + buttonRect.width / 2;
@@ -259,51 +267,49 @@
                     fuirSouris(mouseX, mouseY, buttonCenterX, buttonCenterY);
                 }
             });
-        }
 
-        function fuirSouris(mouseX, mouseY, buttonX, buttonY) {
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
-            const buttonsRect = buttonsContainer.getBoundingClientRect();
+            function fuirSouris(mouseX, mouseY, buttonX, buttonY) {
+                const container = document.querySelector('.container');
+                const containerRect = container.getBoundingClientRect();
+                const buttonsRect = buttonsContainer.getBoundingClientRect();
 
-            // Calculer la direction opposée à la souris
-            const directionX = buttonX - mouseX;
-            const directionY = buttonY - mouseY;
+                // Calculer la direction opposée à la souris
+                const directionX = buttonX - mouseX;
+                const directionY = buttonY - mouseY;
 
-            // Normaliser la direction
-            const magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
-            const normalizedX = directionX / magnitude;
-            const normalizedY = directionY / magnitude;
+                // Normaliser la direction
+                const magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
+                const normalizedX = directionX / magnitude;
+                const normalizedY = directionY / magnitude;
 
-            // Déplacer le bouton de 250px dans la direction opposée
-            const moveDistance = 250;
+                // Déplacer le bouton de 250px dans la direction opposée
+                const moveDistance = 250;
 
-            // Position relative au conteneur des boutons
-            const offsetX = buttonsRect.left - containerRect.left;
-            const offsetY = buttonsRect.top - containerRect.top;
+                // Position relative au conteneur des boutons
+                const offsetX = buttonsRect.left - containerRect.left;
+                const offsetY = buttonsRect.top - containerRect.top;
 
-            // Calculer la position actuelle du bouton
-            const currentLeft = parseFloat(nonButton.style.left) || 0;
-            const currentTop = parseFloat(nonButton.style.top) || 0;
+                // Calculer la position actuelle du bouton
+                const currentLeft = parseFloat(nonButton.style.left) || 0;
+                const currentTop = parseFloat(nonButton.style.top) || 0;
 
-            // Nouvelle position
-            let newX = currentLeft + (normalizedX * moveDistance);
-            let newY = currentTop + (normalizedY * moveDistance);
+                // Nouvelle position
+                let newX = currentLeft + (normalizedX * moveDistance);
+                let newY = currentTop + (normalizedY * moveDistance);
 
-            // Limites du conteneur
-            const maxX = containerRect.width - nonButton.offsetWidth - 100;
-            const maxY = containerRect.height - 100;
+                // Limites du conteneur
+                const maxX = containerRect.width - nonButton.offsetWidth - 100;
+                const maxY = containerRect.height - 100;
 
-            // S'assurer que le bouton reste visible dans le conteneur
-            newX = Math.max(-offsetX + 20, Math.min(newX, maxX - offsetX));
-            newY = Math.max(-offsetY + 20, Math.min(newY, maxY - offsetY));
+                // S'assurer que le bouton reste visible dans le conteneur
+                newX = Math.max(-offsetX + 20, Math.min(newX, maxX - offsetX));
+                newY = Math.max(-offsetY + 20, Math.min(newY, maxY - offsetY));
 
-            nonButton.style.left = newX + 'px';
-            nonButton.style.top = newY + 'px';
-        }
+                nonButton.style.left = newX + 'px';
+                nonButton.style.top = newY + 'px';
+            }
 
-        // Empêcher le clic sur le bouton Non (pour desktop uniquement)
-        if (!isTouchDevice) {
+            // Empêcher le clic sur le bouton Non
             nonButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 const buttonRect = nonButton.getBoundingClientRect();

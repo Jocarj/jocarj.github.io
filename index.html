@@ -1,393 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Data Analysis Dashboard - Team 10</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-flag-checkered"></i>
-                    <h1>F1 Data Analytics</h1>
-                </div>
-                <nav class="nav">
-                    <a href="#overview" class="nav-link active">Overview</a>
-                    <a href="#visualizations" class="nav-link">Visualizations</a>
-                    <a href="#about" class="nav-link">About</a>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background"></div>
-        <div class="container">
-            <div class="hero-content">
-                <h2 class="hero-title">How do different factors combine to influence performance in a Formula 1 race?</h2>
-                <p class="hero-subtitle">Interactive visualizations exploring driver behavior, race strategies, telemetry metrics, and track characteristics using FastF1 data from the 2024 season.</p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">173</span>
-                        <span class="stat-label">Race Events</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">6</span>
-                        <span class="stat-label">Visualizations</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">2018+</span>
-                        <span class="stat-label">Seasons Covered</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Controls -->
-    <section class="controls-section">
-        <div class="container">
-            <div class="controls-panel">
-                <div class="control-group">
-                    <label>Race Selection</label>
-                    <select class="control-select">
-                        <option>2024 Canadian Grand Prix</option>
-                        <option>2024 Monaco Grand Prix</option>
-                        <option>2024 Miami Grand Prix</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label>Session Type</label>
-                    <select class="control-select">
-                        <option>Qualifying</option>
-                        <option>Race</option>
-                        <option>Practice</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label>Driver</label>
-                    <select class="control-select">
-                        <option>Max Verstappen</option>
-                        <option>Lewis Hamilton</option>
-                        <option>Charles Leclerc</option>
-                    </select>
-                </div>
-                <button class="update-btn">
-                    <i class="fas fa-sync"></i>
-                    Update Data
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Visualizations Grid -->
-    <section class="visualizations" id="visualizations">
-        <div class="container">
-            <h2 class="section-title">Interactive Visualizations</h2>
-            
-            <div class="viz-grid">
-                <!-- Visualization 1 -->
-                <div class="viz-card">
-                    <div class="viz-header">
-                        <h3>Driver Telemetry Comparison</h3>
-                        <div class="viz-controls">
-                            <button class="control-btn active" data-metric="throttle">Throttle</button>
-                            <button class="control-btn" data-metric="brake">Brake</button>
-                            <button class="control-btn" data-metric="gear">Gear</button>
-                        </div>
-                    </div>
-                    <div class="viz-content">
-                        <div class="chart-placeholder">
-                            <div class="chart-lines">
-                                <div class="line line-1"></div>
-                                <div class="line line-2"></div>
-                                <div class="line line-3"></div>
-                            </div>
-                            <div class="chart-legend">
-                                <span class="legend-item"><span class="color-dot red"></span>Verstappen</span>
-                                <span class="legend-item"><span class="color-dot blue"></span>Hamilton</span>
-                                <span class="legend-item"><span class="color-dot green"></span>Leclerc</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="viz-footer">
-                        <span class="questions-tag">Q1, Q2, Q3, Q4</span>
-                    </div>
-                </div>
-
-                <!-- Visualization 2 -->
-                <div class="viz-card">
-                    <div class="viz-header">
-                        <h3>Sector Performance Heatmap</h3>
-                        <div class="viz-controls">
-                            <select class="mini-select">
-                                <option>Verstappen</option>
-                                <option>Hamilton</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="viz-content">
-                        <div class="heatmap-placeholder">
-                            <div class="heatmap-grid">
-                                <div class="heatmap-row">
-                                    <div class="heatmap-cell green"></div>
-                                    <div class="heatmap-cell red"></div>
-                                    <div class="heatmap-cell yellow"></div>
-                                </div>
-                                <div class="heatmap-row">
-                                    <div class="heatmap-cell yellow"></div>
-                                    <div class="heatmap-cell green"></div>
-                                    <div class="heatmap-cell red"></div>
-                                </div>
-                                <div class="heatmap-row">
-                                    <div class="heatmap-cell red"></div>
-                                    <div class="heatmap-cell yellow"></div>
-                                    <div class="heatmap-cell green"></div>
-                                </div>
-                            </div>
-                            <div class="heatmap-labels">
-                                <span>S1</span>
-                                <span>S2</span>
-                                <span>S3</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="viz-footer">
-                        <span class="questions-tag">Q2, Q8, Q11</span>
-                    </div>
-                </div>
-
-                <!-- Visualization 3 -->
-                <div class="viz-card">
-                    <div class="viz-header">
-                        <h3>Pit Stop Strategy Timeline</h3>
-                    </div>
-                    <div class="viz-content">
-                        <div class="gantt-placeholder">
-                            <div class="gantt-row">
-                                <span class="driver-label">VER</span>
-                                <div class="stint-bar soft"></div>
-                                <div class="pit-icon"><i class="fas fa-wrench"></i></div>
-                                <div class="stint-bar medium"></div>
-                                <div class="pit-icon"><i class="fas fa-wrench"></i></div>
-                                <div class="stint-bar hard"></div>
-                            </div>
-                            <div class="gantt-row">
-                                <span class="driver-label">HAM</span>
-                                <div class="stint-bar medium"></div>
-                                <div class="pit-icon"><i class="fas fa-wrench"></i></div>
-                                <div class="stint-bar soft"></div>
-                                <div class="pit-icon"><i class="fas fa-wrench"></i></div>
-                                <div class="stint-bar hard"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="viz-footer">
-                        <span class="questions-tag">Q5, Q6, Q7</span>
-                    </div>
-                </div>
-
-                <!-- Visualization 4 -->
-                <div class="viz-card">
-                    <div class="viz-header">
-                        <h3>Speed vs DRS Analysis</h3>
-                    </div>
-                    <div class="viz-content">
-                        <div class="scatter-placeholder">
-                            <div class="scatter-points">
-                                <div class="scatter-point drs-active" style="left: 20%; top: 30%;"></div>
-                                <div class="scatter-point drs-inactive" style="left: 45%; top: 60%;"></div>
-                                <div class="scatter-point drs-active" style="left: 70%; top: 20%;"></div>
-                                <div class="scatter-point drs-inactive" style="left: 35%; top: 80%;"></div>
-                                <div class="scatter-point drs-active" style="left: 80%; top: 40%;"></div>
-                            </div>
-                            <div class="axis-labels">
-                                <span class="x-axis">Speed (km/h)</span>
-                                <span class="y-axis">Throttle %</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="viz-footer">
-                        <span class="questions-tag">Q9</span>
-                    </div>
-                </div>
-
-                <!-- Visualization 5 -->
-                <div class="viz-card wide">
-                    <div class="viz-header">
-                        <h3>Lap Times with Weather Conditions</h3>
-                        <div class="viz-controls">
-                            <label class="toggle">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                                Weather Overlay
-                            </label>
-                        </div>
-                    </div>
-                    <div class="viz-content">
-                        <div class="weather-chart-placeholder">
-                            <div class="weather-overlay rain"></div>
-                            <div class="lap-time-line"></div>
-                            <div class="weather-legend">
-                                <span class="weather-item"><span class="weather-dot rain"></span>Rain</span>
-                                <span class="weather-item"><span class="weather-dot dry"></span>Dry</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="viz-footer">
-                        <span class="questions-tag">Q8, Q13</span>
-                    </div>
-                </div>
-
-                <!-- Visualization 6 -->
-                <div class="viz-card wide">
-                    <div class="viz-header">
-                        <h3>Track Map with Telemetry Data</h3>
-                        <div class="viz-controls">
-                            <button class="control-btn active" data-metric="speed">Speed</button>
-                            <button class="control-btn" data-metric="gear">Gear</button>
-                            <button class="control-btn" data-metric="throttle">Throttle</button>
-                        </div>
-                    </div>
-                    <div class="viz-content">
-                        <div class="track-map-placeholder">
-                            <svg class="track-svg" viewBox="0 0 400 300">
-                                <path class="track-outline" d="M50,150 Q100,50 200,100 Q300,150 350,200 Q300,250 200,200 Q100,250 50,150 Z" 
-                                      fill="none" stroke="url(#speedGradient)" stroke-width="8"/>
-                                <defs>
-                                    <linearGradient id="speedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" style="stop-color:#0066ff"/>
-                                        <stop offset="50%" style="stop-color:#ffff00"/>
-                                        <stop offset="100%" style="stop-color:#ff0000"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                            <div class="track-legend">
-                                <span>Circuit Gilles Villeneuve</span>
-                                <div class="speed-scale">
-                                    <span>100</span>
-                                    <span>200</span>
-                                    <span>300+ km/h</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="viz-footer">
-                        <span class="questions-tag">Q3, Q11, Q12</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>About This Project</h2>
-                    <p>This dashboard provides interactive exploration of Formula 1 race data using the FastF1 Python library. Our goal is to make complex F1 telemetry data accessible and engaging for enthusiasts, analysts, and students.</p>
-                    <div class="team-info">
-                        <h3>Team 10 - Plotly</h3>
-                        <div class="team-members">
-                            <span>Jonathan Roy-Ascanio</span>
-                            <span>Thomas Villeneuve</span>
-                            <span>Abdelnour Sikouky</span>
-                            <span>Jordan Caraballo Bonin</span>
-                            <span>Christophe Lapointe</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-stats">
-                    <div class="data-info">
-                        <h4>Data Source</h4>
-                        <p>FastF1 Library - F1 Official API</p>
-                        <p>Coverage: 2018-2025 seasons</p>
-                        <p>173 race events available</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <span>INF8808 - Data Visualization Project</span>
-                    <span class="date">Summer 2025</span>
-                </div>
-                <div class="footer-right">
-                    <span>Powered by FastF1 & Plotly</span>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Simple interactivity for the mockup
-        document.addEventListener('DOMContentLoaded', function() {
-            // Control button interactions
-            const controlBtns = document.querySelectorAll('.control-btn');
-            controlBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from siblings
-                    const siblings = this.parentElement.querySelectorAll('.control-btn');
-                    siblings.forEach(sibling => sibling.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                });
-            });
-
-            // Hover effects for visualization cards
-            const vizCards = document.querySelectorAll('.viz-card');
-            vizCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-
-            // Update button animation
-            const updateBtn = document.querySelector('.update-btn');
-            updateBtn.addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                icon.style.animation = 'spin 1s linear';
-                setTimeout(() => {
-                    icon.style.animation = '';
-                }, 1000);
-            });
-        });
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
-
+    <title>Rachel, veux-tu être ma Valentine? 💕</title>
     <style>
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4757;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .heart {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .question {
+            font-size: 1.5em;
+            color: #333;
+            margin: 30px 0;
+        }
+
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            position: relative;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        #oui {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        #oui:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
+        }
+
+        #non {
+            background: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
+            color: #2d3436;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            transition: left 0.15s ease, top 0.15s ease;
+        }
+
+        #non-placeholder {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', cursive;
+            visibility: hidden;
+        }
+
+        .success {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success h2 {
+            color: #ff4757;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .success p {
+            color: #555;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .success img {
+            max-width: 300px;
+            width: 100%;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff4757;
+            position: absolute;
+            animation: confetti-fall 3s linear;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
+</head>
+<body>
+    <div class="container">
+        <div id="question-box">
+            <h1>Rachel 💕</h1>
+            <div class="heart">❤️</div>
+            <p class="question">Veux-tu être ma Valentine cette année?</p>
+            <div class="buttons">
+                <button id="oui" onclick="direOui()">OUI! 💖</button>
+                <button id="non-placeholder">Non 😢</button>
+                <button id="non">Non 😢</button>
+            </div>
+        </div>
+
+        <div id="success" class="success">
+            <h2>YAYYY! 🎉💕</h2>
+            <img id="valentine-image" src="1.jpg" alt="💕">
+            <p>Je savais que tu dirais oui!</p>
+            <p style="margin-top: 20px;">Je t'aime tellement! 😍</p>
+        </div>
+    </div>
+
+    <script>
+        const nonButton = document.getElementById('non');
+        const nonPlaceholder = document.getElementById('non-placeholder');
+        const buttonsContainer = document.querySelector('.buttons');
+
+        // Positionner le bouton "Non" à sa position initiale (au-dessus du placeholder)
+        function initialiserPositionNon() {
+            const placeholderRect = nonPlaceholder.getBoundingClientRect();
+            const containerRect = buttonsContainer.getBoundingClientRect();
+
+            nonButton.style.left = (placeholderRect.left - containerRect.left) + 'px';
+            nonButton.style.top = (placeholderRect.top - containerRect.top) + 'px';
+        }
+
+        // Initialiser au chargement
+        initialiserPositionNon();
+
+        // Détecter la proximité de la souris
+        buttonsContainer.addEventListener('mousemove', function(e) {
+            const buttonRect = nonButton.getBoundingClientRect();
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            // Calculer la distance entre la souris et le centre du bouton
+            const distance = Math.sqrt(
+                Math.pow(mouseX - buttonCenterX, 2) +
+                Math.pow(mouseY - buttonCenterY, 2)
+            );
+
+            // Si la souris est à moins de 150px, le bouton fuit!
+            if (distance < 150) {
+                fuirSouris();
+            }
+        });
+
+        function fuirSouris() {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const buttonsRect = buttonsContainer.getBoundingClientRect();
+
+            // Générer une position aléatoire dans tout le conteneur
+            const maxX = containerRect.width - nonButton.offsetWidth - 100;
+            const maxY = containerRect.height - 100;
+
+            // Position relative au conteneur des boutons
+            const offsetX = buttonsRect.left - containerRect.left;
+            const offsetY = buttonsRect.top - containerRect.top;
+
+            let randomX = Math.random() * maxX - offsetX;
+            let randomY = Math.random() * maxY - offsetY;
+
+            // S'assurer que le bouton reste visible dans le conteneur
+            randomX = Math.max(-offsetX + 20, Math.min(randomX, maxX - offsetX));
+            randomY = Math.max(-offsetY + 20, Math.min(randomY, maxY - offsetY));
+
+            nonButton.style.left = randomX + 'px';
+            nonButton.style.top = randomY + 'px';
+        }
+
+        // Empêcher le clic sur le bouton Non
+        nonButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            fuirSouris();
+        });
+
+        function direOui() {
+            // Créer des confettis
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 30);
+            }
+
+            // Cacher la question et montrer le message de succès
+            setTimeout(() => {
+                document.getElementById('question-box').style.display = 'none';
+                document.getElementById('success').style.display = 'block';
+
+                // Démarrer l'alternance des images
+                alternerImages();
+            }, 300);
+        }
+
+        function alternerImages() {
+            const image = document.getElementById('valentine-image');
+            let currentImage = 1;
+
+            setInterval(() => {
+                currentImage = currentImage === 1 ? 2 : 1;
+                image.src = currentImage + '.jpg';
+            }, 1000); // Change d'image toutes les 1 seconde
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.top = '-10px';
+            confetti.style.background = ['#ff4757', '#ff6b6b', '#ee5a6f', '#ff7979', '#ff6348'][Math.floor(Math.random() * 5)];
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = confetti.style.width;
+            confetti.style.borderRadius = '50%';
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
